@@ -17,8 +17,5 @@ public class AuthenticationResponse {
 		this.token = token;
 	}
 	
-	
-	
-	
 
 }

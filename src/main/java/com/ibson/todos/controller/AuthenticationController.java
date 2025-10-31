@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ibson.todos.request.AuthenticationRequest;
 import com.ibson.todos.request.RegisterRequest;
+import com.ibson.todos.response.AuthenticationResponse;
 import com.ibson.todos.service.AuthenticationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,11 +27,19 @@ public class AuthenticationController {
 		this.authenticationService=authenticationService;
 	}
 
+	//pwd P@ssword!123
 	@Operation(summary="Register a user",description = "Create a new user in database")
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/register")
 	public void register(@Valid @RequestBody RegisterRequest registerRequest) throws Exception{
 		authenticationService.register(registerRequest);
+	}
+	
+	@Operation(summary = "Login a User",description = "Submit email & password to authenticate user")
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping("/login")
+	public AuthenticationResponse login(@Valid @RequestBody AuthenticationRequest authRequest) {
+		return authenticationService.login(authRequest);
 	}
 }
 
